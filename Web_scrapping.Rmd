@@ -52,7 +52,55 @@ book_df <- bind_cols(title_tibble, price_tibble)
 # View the resulting data frame
 print(book_df)
 ```
+```{r}
+# Define link and page
+link <- "https://www.trustpilot.com/review/ubereats.com"
+page <- read_html(link)
+# call page to see the HTML structure.
+print(page)
+```
+
+```{r}
+page <- read_html("https://www.trustpilot.com/review/ubereats.com")
+
+# Extract review titles
+titles <- page %>%
+  html_nodes("span.typography_heading-s__f7029.typography_appearance-default__AAY17") %>%
+  html_text()
+
+# Extract review text
+reviews <- page %>%
+  html_nodes("span.typography_body-l__KUYFJ.typography_appearance-default__AAY17.typography_color-black__5LYEn") %>%
+  html_text()
+
+# Extract reviewer names
+reviewers <- page %>%
+  html_nodes("span.typography_heading-xxs__QKBS8.typography_appearance-default__AAY17") %>%
+  html_text()
+
+# Extract dates
+dates <- page %>%
+  html_nodes("span.typography_body-m__xgxZ_.typography_appearance-default__AAY17") %>%
+  html_text() %>%
+  extract_dates()
+
+# Extract ratings
+ratings <- page %>%
+  html_nodes("span.typography_body-m__xgxZ_.typography_appearance-subtle__8_H2l.styles_datesWrapper__RCEKH") %>%
+  html_attr("alt") %>%
+  extract_rating()
 
 
+reviews_df <- data.frame(
+  Reviewer = reviewers,
+  Date = dates,
+  Rating = ratings,
+  Title = titles,
+  Review = reviews,
+  stringsAsFactors = FALSE
+)
+
+print(reviews_df)
+```
 
 
