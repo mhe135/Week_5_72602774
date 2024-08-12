@@ -1,0 +1,58 @@
+---
+title: "Web_scrapping"
+author: "Miaobing"
+date: "2024-08-12"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include=FALSE}
+library(rvest)
+library(tidyselect)
+library(xml2)
+library(tidyverse)
+library(purrr)
+library(readr)
+library(lubridate)
+library(dplyr)
+```
+
+```{r}
+# Define link and page
+link <- "http://books.toscrape.com/"
+page <- read_html(link)
+# call page to see the HTML structure.
+print(page)
+```
+```{r}
+# Extract the titles from the h3 elements and convert to text
+titles <- page %>%
+html_elements("h3") %>% html_text2()
+# View the extracted titles
+print(titles)
+```
+```{r}
+# Extract the prices from the elements with class "price_color"
+book_price <- page %>%
+  html_elements(".price_color") %>%
+  html_text2() # This should also return a character vector
+
+# Convert titles and prices to tibbles
+title_tibble <- tibble(titles)
+price_tibble <- tibble(book_price)
+
+# Combine the title and price tibbles into a single data frame
+book_df <- bind_cols(title_tibble, price_tibble)
+
+# View the resulting data frame
+print(book_df)
+```
+
+
+
+
