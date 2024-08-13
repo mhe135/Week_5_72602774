@@ -77,8 +77,9 @@ reviewers <- page %>%
   html_elements(".typography_heading-xxs__QKBS8") %>%
   html_text(trim = TRUE)
 
-# Convert extracted reviewer names into a tibble format
+# Convert extracted reviewer names
 reviewers_tf <- tibble(reviewer = reviewers)
+
 # Display the first 6 rows of the reviewer names
 reviewers_tf %>%
   head(6) %>%
@@ -97,10 +98,10 @@ ratings_stars <- page %>%
 # Step 2: Convert extracted ratings into numeric values
 ratings_num <- as.numeric(ratings_stars)
 
-# Step 3: Convert the numeric ratings into a tibble format
+# Step 3: Convert the numeric ratings
 ratings_tf <- tibble(Rating = ratings_num)
 
-# Step 4: Display the first 6 rows of star ratings in a formatted table with left-aligned content
+# Step 4: Display the first 6 rows of star ratings
 ratings_tf %>%
   head(6) %>%
   kable(col.names = "Rating") %>%
@@ -110,4 +111,24 @@ ratings_tf %>%
 
 ```
 
+# Reviews text
+```{r}
+# Step 1: Extract the review text from the web page
+reviews_text <- page %>%
+  html_elements(".styles_cardWrapper__LcCPA") %>%
+  html_elements(".typography_body-l__KUYFJ") %>%
+  html_text(trim = TRUE)
+
+# Step 2: Convert extracted review text
+reviews_tf <- tibble(Review = reviews_text)
+
+# Step 3: Display the first 6 rows of the review text
+reviews_tf %>%
+  head(6) %>%
+  kable(col.names = "Review") %>%
+  kable_styling(bootstrap_options = c("striped", "responsive"),
+                full_width = TRUE, position = "left")
+
+```
+# Review Dates
 
