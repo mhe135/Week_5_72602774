@@ -88,7 +88,26 @@ reviewers_tf %>%
 ```
 
 # Rating
+```{r echo=FALSE,warning=FALSE}
+# Step 1: Extract the star ratings from the webpage
+ratings_stars <- page %>%
+  html_elements(".styles_reviewHeader__iU9Px") %>%
+  html_attr("data-service-review-rating")
 
+# Step 2: Convert extracted ratings into numeric values
+ratings_num <- as.numeric(ratings_stars)
 
+# Step 3: Convert the numeric ratings into a tibble format
+ratings_tf <- tibble(Rating = ratings_num)
+
+# Step 4: Display the first 6 rows of star ratings in a formatted table with left-aligned content
+ratings_tf %>%
+  head(6) %>%
+  kable(col.names = "Rating") %>%
+  kable_styling(bootstrap_options = c("striped", "responsive"),
+                full_width = FALSE, position = "left") %>%
+  column_spec(1, width = "1em", extra_css = "text-align: left;")
+
+```
 
 
