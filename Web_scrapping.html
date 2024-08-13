@@ -1852,28 +1852,6 @@ display: none;
 </div>
 
 
-<pre class="r"><code># Define link and page
-link &lt;- &quot;http://books.toscrape.com/&quot;
-page &lt;- read_html(link)
-# call page to see the HTML structure.</code></pre>
-<pre class="r"><code># Extract the titles from the h3 elements and convert to text
-titles &lt;- page %&gt;%
-html_elements(&quot;h3&quot;) %&gt;% html_text2()
-# View the extracted titles</code></pre>
-<pre class="r"><code># Extract the prices from the elements with class &quot;price_color&quot;
-book_price &lt;- page %&gt;%
-  html_elements(&quot;.price_color&quot;) %&gt;%
-  html_text2() # This should also return a character vector
-
-# Convert titles and prices to tibbles
-title_tibble &lt;- tibble(titles)
-price_tibble &lt;- tibble(book_price)
-
-# Combine the title and price tibbles into a single data frame
-book_df &lt;- bind_cols(title_tibble, price_tibble)
-
-# View the resulting data frame
-print(book_df)</code></pre>
 <pre><code>## # A tibble: 20 × 2
 ##    titles                                book_price
 ##    &lt;chr&gt;                                 &lt;chr&gt;     
@@ -1897,21 +1875,6 @@ print(book_df)</code></pre>
 ## 18 Mesaerion: The Best Science ...       £37.59    
 ## 19 Libertarianism for Beginners          £51.33    
 ## 20 It&#39;s Only the Himalayas               £45.17</code></pre>
-<pre class="r"><code># Define link and page
-link &lt;- &quot;https://www.trustpilot.com/review/ubereats.com&quot;
-page &lt;- read_html(link)
-# call page to see the HTML structure.
-print(page)</code></pre>
-<pre><code>## {html_document}
-## &lt;html lang=&quot;en-US&quot;&gt;
-## [1] &lt;head&gt;\n&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8 ...
-## [2] &lt;body&gt;\n&lt;div id=&quot;__next&quot;&gt;&lt;div class=&quot;theme-provider_themeProvider__MkYcR  ...</code></pre>
-<pre class="r"><code># Clean and convert date strings into Date objects
-clean_dates &lt;- function(dates) {
-  cleaned_dates &lt;- gsub(&quot;Date of experience: &quot;, &quot;&quot;, dates)
-  parsed_dates &lt;- as.Date(cleaned_dates, format = &quot;%B %d, %Y&quot;)
-  parsed_dates &lt;- parsed_dates[!is.na(parsed_dates)]
-  return(parsed_dates)}</code></pre>
 <div id="reviewer" class="section level1">
 <h1>Reviewer</h1>
 <table class="table table-striped table-responsive" style="width: auto !important; ">
@@ -1956,8 +1919,2412 @@ Sergiy
 </tbody>
 </table>
 </div>
-<div id="rating" class="section level1">
-<h1>Rating</h1>
+<div id="review-rating" class="section level1">
+<h1>Review Rating</h1>
+<table class="table table-striped table-responsive" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:right;">
+Rating
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;width: 1em; text-align: left;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:right;width: 1em; text-align: left;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:right;width: 1em; text-align: left;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:right;width: 1em; text-align: left;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:right;width: 1em; text-align: left;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:right;width: 1em; text-align: left;">
+3
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="reviews-text" class="section level1">
+<h1>Reviews text</h1>
+<table class="table table-striped table-responsive" style>
+<thead>
+<tr>
+<th style="text-align:left;">
+Review
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Prompt delivery and a very polite and courteous delivery guy. However,
+I’d like to ask that you stop giving discount codes in percentages. Like
+just say it’s x amount off on orders above y amount, instead of z% (upto
+x amount) on orders above y. It’s more honest and less aggravating to
+people who actually expected a z% discount on any amount they were
+willing to spend over the limit.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+The first 2 times were great. Third time the reorder tab wasn’t there. I
+put in the address I wanted it delivered to and continued, but when I
+finished order it had reverted to my present address! Fortunately I
+found the undo in time. I went to a different app to order. I would like
+to see if there is a monthly subscription to eliminate delivery fees,
+like at Walmart. I order food for my 97 year old Dad. Was considering
+getting him a smart phone, set it up for just hitting reorder, but this
+was discouraging.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Just hit my 20 delivery milestone enjoying making deliveries in my spare
+time. I would like to gain diamond status as an Uber eats driver. Other
+drivers and support teams are incredibly help along the way.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+A recent visit to Fort Worth Tx. with theGrandkids. Hot evening at the
+Hotel from a day of adventure. Too tired to go to one of the many
+restaurants nearby.I used the Uber Eats app.1. Was impressed with the
+user friendly app2. The young lady that came out in the heat to deliver
+the food.3. The order was correct4. Less than 30 minutes delivery was
+made 5. Food delicious Mission Accomplished!!
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+My experience with Uber Eats was great both times it was very timely and
+issue free.. and because it gives me 285 Fetch points per delivery and
+200 Fetch points per Uber ride. I used Door Dash for deliveries before I
+discovered the Fetch point advantage for Uber &amp; Uber Eats.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Order went through fast and easy and it was on the way as promised. The
+order was for different person who wasn’t feeling well. Driver called me
+once he arrived, thinking I gave the wrong address. I asked him to call
+the door bell and if no one answer just leave it at the front door. The
+person who was the meal intended to, never heard door bell and no food
+was left at the front door. Whatever happened to it noone knows. I hope
+whoever took it enjoyed it.
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="review-dates" class="section level1">
+<h1>Review Dates</h1>
+<table class="table table-striped table-responsive" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+2024-08-10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2024-08-11
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2024-08-12
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2024-08-10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2024-08-10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2024-08-09
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="combination" class="section level1">
+<h1>Combination</h1>
+<table class="table table-striped table-responsive" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+title
+</th>
+<th style="text-align:left;">
+date
+</th>
+<th style="text-align:left;">
+reviewer
+</th>
+<th style="text-align:right;">
+rating
+</th>
+<th style="text-align:left;">
+review
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Good and a bit on the downside
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-10
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Bond Kings
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+4
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+Prompt delivery and a very polite and courteous delivery guy. However,
+I’d like to ask that you stop giving discount codes in percentages. Like
+just say it’s x amount off on orders above y amount, instead of z% (upto
+x amount) on orders above y. It’s more honest and less aggravating to
+people who actually expected a z% discount on any amount they were
+willing to spend over the limit.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+The first 2 times were great
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-11
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Hartwig
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+3
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+The first 2 times were great. Third time the reorder tab wasn’t there. I
+put in the address I wanted it delivered to and continued, but when I
+finished order it had reverted to my present address! Fortunately I
+found the undo in time. I went to a different app to order. I would like
+to see if there is a monthly subscription to eliminate delivery fees,
+like at Walmart. I order food for my 97 year old Dad. Was considering
+getting him a smart phone, set it up for just hitting reorder, but this
+was discouraging.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+20 delivery milestone
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-12
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+JAKE ROBINSON
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+4
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+Just hit my 20 delivery milestone enjoying making deliveries in my spare
+time. I would like to gain diamond status as an Uber eats driver. Other
+drivers and support teams are incredibly help along the way.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+First Time!
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-10
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+CTulsa
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+5
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+A recent visit to Fort Worth Tx. with theGrandkids. Hot evening at the
+Hotel from a day of adventure. Too tired to go to one of the many
+restaurants nearby.I used the Uber Eats app.1. Was impressed with the
+user friendly app2. The young lady that came out in the heat to deliver
+the food.3. The order was correct4. Less than 30 minutes delivery was
+made 5. Food delicious Mission Accomplished!!
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+GREAT SERVICE
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-10
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+George Marrero
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+5
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+My experience with Uber Eats was great both times it was very timely and
+issue free.. and because it gives me 285 Fetch points per delivery and
+200 Fetch points per Uber ride. I used Door Dash for deliveries before I
+discovered the Fetch point advantage for Uber &amp; Uber Eats.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Good service failed
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-09
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Sergiy
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+3
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+Order went through fast and easy and it was on the way as promised. The
+order was for different person who wasn’t feeling well. Driver called me
+once he arrived, thinking I gave the wrong address. I asked him to call
+the door bell and if no one answer just leave it at the front door. The
+person who was the meal intended to, never heard door bell and no food
+was left at the front door. Whatever happened to it noone knows. I hope
+whoever took it enjoyed it.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+I couldn’t have done it better by…
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-09
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Justin Engel
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+5
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+I couldn’t have done it better by myself. I have seizures and can drive
+so having someone to get my groceries meant everything. I want to give
+you my upmost thanks and let you know that you couldn’t have done a
+better job and that’s why I am using Uber eats more than I used to as
+opposed to only Uber.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Everything you order good it arrives…
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-12
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Kay Brown
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+Everything you order good it arrives cold, missing dips and this time
+missing fries. Tried to ring McDonalds The Rock. They don’t take
+responsibility and blame Uber. Who only deliver the food they do not
+pack it. Trying to contact Uber Eats is virtually impossible. Unable to
+speak to anyone just leave a complaint and they state they will respond
+EVENTUALLY. Meanwhile you just have to starve and be out of pocket
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Order not received. No customer service to deal with this
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-11
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Queen Isis
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+2
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+Order not received. Tried to contact restuarnt but not phone number. I
+have emailed them tried to contct uber eats but nothing either/ This was
+with TEmple of Seitan and I will be visiting their restaurant in the
+week to find out Edit: 12/08/24 eventually a family member found a live
+chat link for me to chat with Uber and they say they will give me a
+refund. However this was a total headache to find. will edit my review
+upwards if it does pan out. BAD driver but I might give UE the benefit
+of the doubt.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Not good!!
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-12
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Kay
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+Driver brought order, didn’t knock on door or try to call me, just took
+order away, trying to get refund but keeps being denied, will do a
+charge back with bank if they don’t refundUPDATEAfter 3 times of them
+saying no refund have now been refunded in full, shame it took all day
+for it to be sorted
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Bad, avoid if you must
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-11
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Michael Thomson
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+2
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+I’ve used this a few times and it’s been fine, but tonight was a total
+sit show. My original order the driver phoned me saying he was in
+Stockbridge (I live in Leith) he was also on a bicycle so I just told
+him to tuck in.I then placed another order, it arrived at the same time
+as my girlfriend arriving home from work so by the time she took it up
+the stairs we realised it was totally wrong.Go with another company, I
+beg thee!
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Great service for what it costs
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-09
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Mal Walsh
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+5
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+Ordering was easy, was kept fully informed from when the meal was being
+prepared plus progress reports of where the driver was at all times. The
+delivery time was for between 6 - 6.30pm and arrived right on 6. Driver
+was courteous and friendly. A great service and will use it more often.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+For the 1st time ever
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-06
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Jermaine Chadwick
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+5
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+For the 1st time ever, I had my favorite burger restaurant,Burger
+King,delivered to my factory 🏭 job. The deliverer followed all
+directions for coming on the premises to deliver the food.I look forward
+to more job deliveries. Thank You. |
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Fraudulent.
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-11
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+JJ Love
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+Uber Eats has become frustratingly fraudulent. If a rider delivers the
+wrong item, or damages your package; you are forced to pay either way.
+It has happened to me several times, I tried to claim a refund but
+didn’t get any. They lie about their refunds. And the customer service
+is basically useless as you’ll never get a response or solution. Had to
+delete the app altogether
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Won’t be ordering from them anymore
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-11
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Fabrizia Ciccone
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+Won’t be ordering from them anymore. The app picked the wrong address,
+the driver (not his fault) called us a couple of times but due to broken
+English it took us time to understand what the problem was. When we
+realised he was in the wrong location it was too late to fix it up, we
+couldn’t get there because we don’t have a car, and he wouldn’t come to
+the right address. I wanted to cancel the order and get it back to the
+restaurant and re delivered by someone else but it wasn’t possible. No
+food (not sure where it ended up), no refund, no clear explanation other
+than: “this is not elegible for a refund because the driver tried to
+contact you and waited”.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Absolutely shocking customer service
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-11
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Sophie Wood
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+Absolutely shocking customer service. I ordered 2 meals, only 1 arrived
+I have been trying to get refunded for the meal I did not receive and it
+has been so difficult! I have been told on Twitter I am not eligible for
+a refund, currently trying to get one through live chat they have given
+me 6-12 hours to expect a response. Avoid using this service as if
+something goes wrong it is incredibly difficult to get your money
+back!!!!
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Worst experience
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-11
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+LALUTHOMAS THOMAS
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+Worst experience. Ordered food online from royal Indian curry club
+Southampton via Uber eats and didn’t receive it for an hour and half.
+When I called them, they said it’s been delivered to the wrong address
+and were unable to take another order as they were about to close. They
+wasted my time. There is no support from Uber eat. Won’t suggest this
+place to anyone.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Great First Experience
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-09
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Laura Hood
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+5
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+It was easy and Rickie (our driver) was quick delivering and cordial.
+The food was still hot and delicious too! Thank you!
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Worst Experience and delays
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-12
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+sowjanya jonnalagadda
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+Worst Experience. there is no customer support to reachout if case of
+huge delays in the order. No response, the delivery time keeps
+increasing from minutes to hour. Worst and worst experience. I have all
+the screenshots for multiple attempts if any one challenges me. This
+will be my last order from ubereats
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Worst customer service ever
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-11
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Virginia Connor
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+Worst customer service ever! They changed me for an immediately
+cancelled order. I had no choice but to cancel bc it wouldn’t take the
+correct address. Customer service only has what I assume are chat bots
+and there is no number to call. It’s impersonal and they just hang up on
+you after saying they can’t help. I got charged full price for something
+that was never delivered.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+DO NOT USE WHATSOEVER!!
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-11
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Lauren Pitchford
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+DO NOT USE WHATSOEVER!!! Would give 0 stars if possible as this is the
+worst app I have ever used, I have ordered from it three times, twice
+food has not been delivered while money has been taken from my bank and
+not refunded, and once food was arrived it was the wrong order aswell as
+being cold. Without refund, there is no contact number for when these
+problems occur. I am owed nearly £50 worth of food!!!!!! Please use
+Justeat or deliveroo instead as they atleast give you a refund or
+vouchers for your next orders.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Dont screen their workers: PRIVACY CONCERNS
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-06-12
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+FOR THE GREATER GOOD
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+2
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+Dont screen their workers. Multiple times they have come to my home and
+stopped and taken pictures without asking. Most do not know what a
+security gate button is. No basic good training for the staff. SOOOOOO
+dissappointing and getting worse every year.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Bad service
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-10
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Felicia sanders
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+Order food this weekend food came quickly food was terrible. Manager
+stated I would have to go thru Uber eats to get my refund one they
+charged me twice for what they were supposed to refund me for then
+refuse to refund me my $56 dollars. Will never use them again this is
+the second time this has happened and i refuse to have to go thru this
+hassle to get a refund.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Easy to use
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-04
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Tom Meisner
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+5
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+Easy to use. Service was quick from restaurant and delivery driver. Food
+was placed outside the storm door and was not announced. We only knew
+food had arrived by receiving an email with a picture. Please ring
+doorbell or knock.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Stay away
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-09
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+alexandra platel
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+I find the app(not most of the employees) to be taking the most
+advantage of everyone. When even big mistakes are made there are little
+to minimal reimbursements. Even though I sadly have had the UberOne
+subscription I highly recommend never to engage in any subscriptions and
+as minimal interaction with the Uber app wether it is UberEats or just
+plain Uber drivers. I will be cancelling as soon as possible.
+Additionally, I recommend everyone who use this app to compare their
+fare with friends as they have many different prices for the exact same
+pick-up and delivery address at the exact same time.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+No food or refund
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-11
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Lianna Murphy
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+No food or refundWe put in an order for over €100 in McDonald’s on the
+Cork Road, Waterford, delivery driver only brought the drinks and sauces
+and said he’d come back with the food.2 hours later still no sign of the
+food, McDonald’s staff told us the driver left 15 minutes ago.Then when
+two of us went to the restaurant they refused to give us the food or a
+refund because it was ordered through Uber Eats.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+No Lunch
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-12
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Michael
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+A work colleagues daughter visited and we all ordered McDonalds on the
+daughter’s app. My order was wrong and we had no straws for our
+milkshakes. I called McDonalds and they told me to call UberEATS. I
+called them and they basically told me that someone would contact me
+within 24 hours. I asked to speak to the manager (Fahem Iqbac) and asked
+what I would do for lunch, but he just kept repeating “I hope you have a
+better experience next time”. I then asked how they would contact me,
+but got told they wouldn’t, they will contact the account holder. I said
+it’s my order and my money, why can’t you contact me personally but he
+refused even though I wouldn’t see the daughter again. I wish I had
+never placed an order with them and will never use them again. If
+anything goes wrong, you go without food.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Wanted alcohol….didn’t want to drive…
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-10
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Mike
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+5
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+Wanted alcohol….didn’t want to drive cuz I already had alcohol….so I
+thought deliver alcohol….what a great concept…but this only occurred to
+be a great concept cuz I was a touch buzzed Thanks
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+They order came missing 6 of the 9…
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-10
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+<ul>
+<li>Gabriel Neves
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+They order came missing 6 of the 9 items requested. Ubereats reply to
+this was a copy &amp; paste of this:“We’ve taken a look into your order
+and the concerns you’ve raised and unfortunately, we will be unable to
+provide a refund on this occasion.While we appreciate this wasn’t the
+experience you were looking for, we hope you understand our
+decision.”They charge you, misdeliver and refuse to do anything about
+it.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Uber eats scam
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-12
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Jacqui
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+I ordered food and the driver passed it me, I asked him to stay as the
+bag was open and when I looked inside items were missing. He said he
+would report it and I rang up to report it to be told it’s their policy
+not to refund me! Even though the driver was stood there when I checked
+the bag that was sent for me. Disgusting that they can refuse to refund
+you when you have a witness who works for them to items not delivered
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Order missing next one item missing.
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-11
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+garyb
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+First order was from flavours of Jamaica.Our whole order was $103.
+Nothing we ordered came. But 4 pieces of chicken &amp; 2 wings with rice
+n peas. I called the restaurant, they said can’t help throw the food
+that came away. We were refunded.So now needed food again, so made an
+order from the red lobster. Only 1 item missing this time tried
+contacting user eats. 1 day later &amp; still haven’t got a reply.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+I was delivering for yber doing food…
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-10
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Mohammed Nasaar
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+I was delivering for yber doing food delivery’s but stopped for a year
+as my mum passed away so my car insurance needed updating i updated a
+new car and th3le insurance certificate waited got approved and started
+doing deliveries after just 3 deliveries they blocked my account as they
+saying i have multiple accounts as it was a year i never delivered so
+accidentally used my other email account so they blocked me??Wasted
+money on my insurance I have a 5 star rating Would definitely not advise
+anybody working for these comedians.When i got a reply they wouldn’t let
+me respond.They have no telephone numbers and they won’t speak to you
+directly.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Fast, professional, clean, easy to use the App
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-09
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Melissa Ghafoori
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+5
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+It was easy to use the app to place an order, we got our lunch in less
+than 30 min. If you work remotely and don’t have time to cook, UberEATS
+is fast and reliable.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+I made a mistake
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-09
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Paul
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+I made a mistake, I did not notice a change of address, IIt wasn’t
+delivered to my address, It was actually deliverd to their own address,
+The customer service from ubereats was terrible, I admit i made a
+mistake, but they said they delivered it, even tho I had a code to give
+to the person,I really do not what to do
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Cancelled order within 2 minutes
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-09
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Oliver Taylor
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+Cancelled order within 2 minutes. Charged £19 for a £22 order.
+Absolutely never order from them. Complete breach of their terms and
+services. Dealt with a robot chat bot. That’s it. No humans. No
+accountability. Just take your money and screw you over. Literally will
+never order on uber eats again.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Uber eats app have incorrect addresses
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-10
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+SR
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+The Uber eats app had an address for the place I ordered from 0.9 miles
+away from me. Which is why I placed The order. I was Wondering why the
+pickup location was almost 30 minutes away when it said it was on the
+way. They had the incorrect address for the restaurant. They had me
+order from one location, but it was really a location farther away the
+order went to. I have Screenshots to show the address that I ordered
+From, was not the address the order went to.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Awful service
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-10
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Anjan Deb
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+Awful service. I bought burger King order of 3 whopper meals and 9 onion
+rings. What did I get? 4 cheese bites, chicken royale and a hamburger.So
+I contacted uber and they refused any refund “as per their guidelines”.
+Shocking. So I basically got defrauded. There was no receipt on the bag,
+which they wanted. I suspect the driver took it off before delivery.
+Tried calling the driver but suprise, suprise, the call doesn’t go
+through.Starting to think uber employs dodgy drivers. Last week, I had a
+similar issue with McDonald’s. I will now refuse to order food from uber
+Eats or apps that use them. I will go through other apps
+instead.BurgerKing order #2345. Tottenham Hale retail Park BK.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+The takeaway Moons in Bradford …
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-10
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Rukia R
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+The takeaway Moons in Bradford DO NOT ORDER FROM THIS PLACE! They
+falsely advertise buy one get one free and then will not honour it and
+argue with you over the phone. Absolutely disgusting customer service.
+Fraudulent business.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Rip Off
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-10
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Rowee Caballero
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+Kept changing the delivery time. Placed my order at 11:30am, delivery
+time before I confirm the order was 11:50. They updated the delivery
+time to 12:20pm at 11:45. When I canceled because lunch break is over,
+they wouldn’t refund because I had to cancel within 5mins after I placed
+the order to get a refund. How is this possible? They changed the
+delivery time 15mins after I confirmed my order.It’s daylight
+robbery!!!After so many years of using Uber and Uber Eats…..NEVER
+AGAIN!!!
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Wrong Order &amp; No Refund!
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-09
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Benji
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+I ordered KFC through UberEats on the 9th August. The driver that was
+supposed to pick up my food changed 3 times. When I finally had a driver
+- he was on a bicycle and took about an hour to even arrive. When he
+arrived, not only was the food cold - it wasn’t even my order! I
+contacted UberEats right away and showed the receipts and order for
+proof that I hadn’t received what I paid for.They sent me automated
+responses and offered no refund or compensation. Absolute thievery. They
+also keep trying to take down my review. I will continue to post it!
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+The worst delivery place you can…
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-10
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Consumer
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+The worst delivery place you can imagine. ordered and took up to 2 hours
+with different estimated time of delivery every 5 minutes. called
+customer service and was useless and offered to cancel order with a
+refund of up to 5 days. deliveroo any day!
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+breached consumer rights act 2015…
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-09
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Tiana
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+Had breached consumer rights act 2015 by refusing to refund order that
+was not received due to it leaking. We have a message from the driver
+who even says the order has leaked and that they would raise it with
+Uber. Yet no refund or replacement was offered
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Don’t like how they price things
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-12
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Leo c. 
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+2
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+Don’t like how they price things. I did a comparison where I made orders
+through them and then made orders directly at the establishment. And
+compared prices I’ll give you an example. A burger, large fries, large
+drink, and chicken tenders, at the place it’s 17 bucks. Through Uber
+eats total was 65. And this was only with a 10 dollar tip. That’s round
+about 35 dollars in fees. (Not exact). Then when I checked and compared
+prices the places they do business with price the items higher on Uber
+eats. With 65 bucks I could go to an all you can eat fancy steak house
+and eat well instead of eating unhealthy foods. Most delivery companies
+tend to do the same thing. Offer crazy high prices for things that cost
+much less than they normally are. This is what makes giving a higher tip
+impossible. The more you empty my wallet the less I can provide to the
+driver directly. Now it appears though that Uber has somewhat made some
+improvements and it’s why I’m not giving a flat out 1 star. What I mean
+is that I no longer have issues with their systems. And no longer have
+issues with their drivers where previously I had plenty of issues with
+both. I just wish these companies would stick to flat rates instead of
+variable prices. Where they feel to the need to hike up fees for
+whatever internal reason they might have. If only Uber wasn’t insanely
+expensive they would earn more stars unfortunately due to high prices
+it’s a 2 star from me.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Rubbish service by Ubereats
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-05
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Twinkle Twinkle
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+Hi,I ordered from waitrose via ubereats but I received banana is of very
+bad quality which is not good for human consumption.I write on ubereats
+app they just Thank you for your ,but no word for giving money back for
+rubbish banana . Even i called waitrose they said they can’t do anything
+as you ordered from ubereats ,you have to contact ubereats.Uber eats
+never take resposnibly for even delivery getting later like after 1hr.I
+have photo if anyone want to see about this rubbish product.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+This is the most notorious company…
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-08
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Eddie
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+This is the most notorious company on the planet. They are using their
+system to take money from people’s account. They should be in jail with
+the guy who was caught scamming people online. They charged me for order
+that was never prepared lieing to my face that the restaurant already
+prepared the order. What pisses me off is that they are reaping people
+off right in my face. I cancelled the order in less than a minute and
+they held me up on phone for 30 minutes or more trying to explain to me
+the reason why they won’t refund. They already practiced their reasons
+and what to say. I pressed the wrong button and immediately cancelled.
+They should not have charged me that fast but because they knew they
+won’t be refunding is the reason why they did it.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Uber said they turned up and tryed…
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-11
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Tony
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+Uber said they turned up and tryed ringing them when I rang and asked
+what time and said I have noone near my house at that time as I have
+CCTV they said that are policy and kept £90 and the food
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+An Uber eats delivery person crashed…
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2023-08-13
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Debbie Halpin
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+An Uber eats delivery person crashed into my daughter’s parked up car
+outside our house ion his bike. Went straight into the back of her.
+Smashed back window and damaged bodywork, have cctv evidence looks like
+he was looking at his phone. just drives off, company not interested.
+And she had to foot the repair bill. Police also no help, disgusting
+company
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Wouldn’t recommend go elese where…
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-11
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Rebecca Wallis
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+Wouldn’t recommend go elese where ordered our food for it too turn up
+opened. Also food been taken out off box as the deliver drivers are well
+known for eating your food!!!!!!!!!!!!
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Terrible customer service/ inexperienced employees.
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-11
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Aman Minhas
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+I wanted to give a zero star for the situation that just happened. I
+have been using this app for quite a while now and infact I am a uber
+plus member. Ordered my food, after waiting for an hour, driver marked
+it as delivered and what a surprise, the driver and delivery both did
+not arrive. When contacted the support, they indeed refunded my money
+but never listened to my concerns and dissatisfactions. Their customer
+service is absolute zero.Providing refund is not only the solution. Of
+course, if my food did not arrive, you have to refund me. What about the
+whole time I wasted to wait for my order? Where is the driver, why not
+investigate? Why the order was marked as delivered when the driver
+itself was not at the location? It’s a scam.Please train your employees
+as well as the drivers to do their job properly.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Disgrace this company should not be trading
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-08
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+roger frost
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+This company should not be trading. food wasn’t delivered, driver went
+to wrong address tried calling the him several times never picked up.
+Ubereats tell me they have looked at the account and I am not eligible
+for a refund, my question is what use is the code system.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+good service
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-02
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Claire Chu
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+5
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+Food is still warm and in good package with no leaking when delivered.
+The staff rang the bell to remind us food is delivered.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Order £28 worth of food to be delivered…
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-09
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+William Byers - Rushforth
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+Order £28 worth of food to be delivered priority and the driver when off
+for over 10 mins delivering other orders instead of mine bearing in min
+I live around I live close . Food arrive cold and couldn’t eat
+it,Contacted customer service to be given £5 back and said they had
+provided a priority delivery. Shocking customer service not using them
+again
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Terrible company to deal with
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-07
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Peter Nokes
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+Terrible company to deal with. Ordered through the app failed to arrive
+after an hour so phoned the restaurant who said they didn’t have the
+order so suggested cancelling it. Tried asking advice into help section
+diverted to a bot, asked to speak to an advisor about cancelling order
+and reordering. They cancelled the order then charged me the full amount
+and refusing to refund even though the restaurant confirms they never
+received it. Absolute scammers and it’s theft and fraud so will be going
+through my bank to try recover it.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Order came quick
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-09
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Mirjana Karan
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+5
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+Order came quickOrder was still warmVery polite delivery personGreat
+saving
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+First use of UberEats service. The food was fresh and fast delivery.
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-04
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Tia S.
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+5
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+Fast delivery and they hand over items to you at your door if you choose
+that service and do not just drop it off at the door and leave it
+unattended.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Good food without leaving home
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-07
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Daniel Rico
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+5
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+I can’t drive any place if I go anywhere I always walk. Uber is such a
+good service. I love it when I can order my favorite food from
+restaurants.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Absolutely the worst food delivery…
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-09
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Wez Carnell
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+Absolutely the worst food delivery service out there. Ordered food which
+restaurant said they had collected within 15 minutes of order. 40
+minutes after collection still not delivered. Driver time just kept
+getting longer and longer. Not wanting cold food I went on website and
+was asked if I wanted a refund. I sdaid yes and they cancelled the
+order. Then sent an email saying as I had cancelled after the food was
+made, no refund was available. A complete con trick. Never again Uber,
+Never Again. No wonder you have to send out 50% off vouchers. Get some
+legal drivers working for you and you might survive.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+What a rip off UberEats are I used them…
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-08
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Alan Donald
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+What a rip off UberEats are I used them for a take away when it arrived
+which took ages the food was stone cold and disgusting I reported this
+to UberEats stating my order cost me over £51 and they sent me an email
+giving me a credit of £3.50 what a joke I will never use the take away
+or EberEats again.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Refused a refund &amp; broke UK law
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-04
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Customer
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+Refused to give me a refund for an item that was not delivered because I
+had contacted customer services before. Sent me the same stock answer 4
+times. Refused to allow me to make a complaint. Both of these are
+illegal under UK law so I’ve referred them to trading standards.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Ordered from KFC nuneaton and the food…
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-09
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Katie Bickerton-White
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+Ordered from KFC nuneaton and the food was prepared and the first driver
+left. Second driver arrived and delivered the food 40 minutes laterFood
+was stone cold. UberEats refused to do anything and would not issue a
+refund. KFC would not do anything and said contact UberEats.Rubbish
+customer service and £24 worth of food could not eaten due to being cold
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Avoid this company
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-07-26
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Julie Bond
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+One of Uber eats delivery drivers reversed into a pillar on my driveway
+knocking it completely over causing considerable damage and just drove
+off. I sent cctv to Uber eats and asking for damage to be paid for and
+they just keep ignoring my messages and phone calls. I will never use or
+recommend this service. This company should be held responsible for
+damage caused to peoples property but they just don’t want to know.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Poor service, communication and morals
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-08
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+D &amp; M
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+Unable to cancel accidental order, despite attempting to do so within
+seconds of placing it. Terrible help system on app, which sends you
+round in circles to avoid you being able to leave any meaningful
+feedback, or request any live assistance. Brilliant at trying to catch
+you out or upsell though. Poor communication, morally bankrupt company.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Horrible customer service I ordered…
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-11
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+kathie iannaci
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+Horrible customer service I ordered with in a certain time frame order
+was delivered early and they refused to refund me noOne speaks English
+and they could not understand that the delivery was too early it’s very
+frustrating they suck period
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+UberEats and the Driver stole from me!
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-08
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Ryan Rashad
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+Today I ordered Little Caesars it was for 3 pizzas, 2 crazy puffs,
+wings, and cheesy bread. The UberEats driver only delivered 2 pizzas and
+wings, I called UberEats customer service and the FIRST rep put me on
+hold for 12mins then told me it’s nothing he can do and hung up, I
+called back and the Second rep told me that it’s nothing they can do I
+wasn’t eligible for a refund then also hung up. I haven’t requested a
+refund in 3 months as I barely use UberEats but this is disgusting how
+they can literally steal your money and say “oh well forget the
+customer”
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Cold food and appalling customer service
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-10
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+John Hamilton
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+We ordered our second ever UberEATS and only because we were so busy
+preparing for a show on Sunday. We normally collect as Maccys is 5 mins
+away. The delivery updates were good and we were informed the driver was
+on his way. Then we got another message to say the driver had changed
+and was now going to be even longer. Not only was the food stone cold on
+delivery, but a chicken burger was missing. My wife called to complain
+as she is the calm one. She was told the delivery was in good time. She
+relayed the change of driver to the customer service (I use the term
+loosely) operator and said the burger was missing and the food is stone
+cold and asked for a refund. This was refused except for the missing
+chicken burger. The operator was clearly reading from a script and my
+wife pointed this out. “thank you for your feedback”? We hadn’t given
+any!. It concluded with the operator saying we are going round in
+circles and I am giving you your first warning, then hung up. We
+actually got a warning for daring to complain. We didn’t even get the
+full refund for the burger??? We have deleted the app and will NEVER use
+UberEATS again.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Try Deliveroo instead
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-07
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Tony
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+After asking their customers services team for money back when my meal
+arrived with rotten food in it, they sent me two generic responses
+saying they were doing nothing about it. Dire.Go to restaurants you know
+or Deliveroo instead.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Easy and convenient but service charges…
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-06
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Rajibul Bhuyan
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+3
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+Easy and convenient but service charges are to high top of that they put
+us a situation tips the drivers
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+NOT HELPFUL!!
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-04
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Nicole
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+NO ONE ANSWERS ME REGARDING MY CONCERN, THEY JUST GIVE ME THE RUN AROUND
+AND SAY I HAVE OTHER ACCOUNTS TO WHICH I DO NOT AND HAVE HAD POSSESSION
+OF MY CARD AT ALL TIMES. THEY ARE WORTHLESS, I LITERALLY JUST WANT MY
+MONEY BACK FROM THESE CHARGES THAT ARE NOT FROM ME! I ONLY HAVE ONE
+ACCOUNT!
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Awful service
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-09
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+MCHUGH
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+Awful service. My fast food delivery service didn’t arrived and I was
+charged £36 for it. Apparently my money will be refunded in three
+working days. I was expecting to eat today but it seems like I will have
+to wait for three days for my money to get returned to my account.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+I placed a order for Tex Burgers and…
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-07
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Neil Valera
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+I placed a order for Tex Burgers and Chicken here in NYC. Order was a
+Chicken Sandwich combo that comes with fries and a soda. I paid almost
+17 dollars with the fees and when the delivery person gets to me he
+didn’t speak English and had his phone as a translator. All I got was
+the sandwich, no soda no fries. I texted Uber so many times but kept
+getting same answer that my order can’t be refunded. I paid for a combo
+and got a sandwich. Most expensive sandwich I ever eaten. Why can’t they
+think out of a box? Why hire illegal workers that can’t communicate with
+you? Why keep my 17 dollars? Highway robbery.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Failed to deliver an order from KFC
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-08
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Denis
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+Failed to deliver an order from KFC. An hour after the order was made it
+showed as undeliverable! Phoned UberEats customer who said the delivery
+rider will only wait for a short time and if they don’t get an answer
+will leave.I told him that I have security cameras and a ring doorbell
+and no one from UberEats called at my property. Will never order from
+them again.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Top class delivery
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-07
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Ray
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+5
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+Top class delivery. Staying in a hotel and fancied a bit of a change.
+User eats made the transaction and delivery so easy. Very easy to
+order..
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+If I could give no stars I would
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-06
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Tina Kennedy
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+If I could give no stars I would. The driver delivered my order to the
+wrong address. I tried to contact him via the phone number in the app
+and he hung up on me. The app would not let me send him a message - the
+functionality took me to a page where I could only order. Uber Eats are
+refusing to refund me because the driver followed policy and waited at
+the address the allotted time. They seem to miss the point that it was
+the wrong address. Absolutely dreadful will never use again.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+I ordered 2 drinks last night from sub…
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-10
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Stacy Cote
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+I ordered 2 drinks last night from sub zero. There’s one in Manchester
+NH and thought that’s the one I was ordering from. Come to find out it
+came from Massachusetts. The charge I saw and what I was charged were
+completely different. I tried 5 times to tell Uber and they disconnected
+with me. I am understanding now that even Uber is a scam! The last I
+heard someone was going to get in touch with me within 6-12 hours, and I
+have not heard from them. $33 is a bit much for 2 small drinks. I’m very
+disappointed with Uber and I will no longer be their customer!
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Bye Uber Eats
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-10
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Lori
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+I am done with Uber Eats. I have tried several times and every single
+time I have used them, there is a problem, but this time I am deleting
+their app. First off you can’t see the order until after you pay so you
+don’t even lnow what the charges are until AFTER you pay. I also had a
+credit and a promotion code which neither was applied. You can’t even
+get to somebody to talk to and when you do, they say they can’t do
+anything until the order is complete. Bye bye Uber Eats. You were good
+once upon a time, but those days are gone.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+UberEATS - Misleading Omission
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-10
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Seb
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+My cousin and his wife in South Africa had a break-in and had their home
+ransacked and goods including kitchenware stolen. To help, given that I
+am in London and cannot drive over to help clean up or bring food, I
+bought a £100 gift card to send to my cousin. UberEATS provided no
+disclosure to note that the gift card is only redeemable in the UK. When
+I reached out to UberEATS for a refund, the support person refused
+citing policy. UberEATS policy does not take precedence over UK law. A
+material omission of the kind contemplated by the Consumer Protection
+from Unfair Trading Regulations 2008, renders the transaction voidable.
+Accordingly, I request and expect a refund.EDIT:UberEATS has closed 2
+tickets in its bid to avoid paying the refund. The first support person
+didn’t even bother to ask any questions, cited policy, and closed the
+ticket. The second support person sent me on a wild goose chase for
+information that he already had in a part of the app where the
+information does not reside, then closed the ticket merely because
+another ticket existed. The second person did not even bother to check
+that the other ticket was closed before closing the existing ticket. The
+tactics appear designed to stonewall and frustrate. Keep going, Uber;
+it’ll make the formal complaint to Trading Standards that much better.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Placed an order for 9 items and charged…
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-09
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Jacqueline
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+Placed an order for 9 items and charged £43 . I recieced two items that
+total £4.00 . Uber eats won’t respond to rectify this 😕 terrible
+service , totally untrustworthy |
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+I am still waiting for a refund of my…
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-10
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Michelle Melbourne
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+I am still waiting for a refund of my thai meal. Gave guy pin he was
+supposed to meet me in the reception of my hotel. He disappeared no
+food. Money taken out of my account. Happened inCape TownHad to order
+meal again and pay.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+I thought I was getting $50 off my…
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-05
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Lana Weber
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+4
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+I thought I was getting $50 off my first two orders but something didn’t
+work and I paid full price. The food was good and the delivery girl was
+a delight.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Useless
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-11
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Stuart Kerr
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+Third time using and only half of my order turns up. Useless!!!! You’re
+not performing brain surgery, you pick up from A, deliver it to B…………
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Never got refunded my money for the tim…
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-07
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Pam Hicks
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+3
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+Never got refunded my money for the tim hortons screw up last week
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Waited over an hour for no food to be delivered!
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-08
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Jimmy D
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+Waited over an hour for my food to come. Tracker showed the guy pull up
+to mcdonalds. And it went away. Another guy pulled up to mcdonalds and
+eventually come to my hotel. The tracker went away. Said it was
+complete. I called the guy to find out where my food was. He didn’t
+speak English. He texted me and said another driver picked up my food
+and support told him to drive to my location and close out the order. So
+we waited well over an hour for no food, and my kids were hungry!
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Uber eats offers a terrible service
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-07-31
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Natale
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+I placed an order at McDonald’s, I used the Uber Eats app, I’m really
+disappointed, I paid a premium for the service, so far everything was
+fine, but my food never arrived, they refunded me for this though. The
+second order I had to make, my food arrived after about 2 and a half
+hours, it was cold, practically inedible, I asked for a refund as the
+regulation rightly requires, also because everything is documented by
+the app. I was refused the refund, to conclude I paid for a service that
+turned out to be a terrible misadventure. You practically deserve to be
+taken to court for that food It was for my 3 and 8 year old kids.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Uber Eats delivered where no one else…
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-06
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Natalia
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+5
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+Uber Eats delivered where no one else will. I’m not even that far out of
+town! I’m just a little north of the perimeter and everyone else refuses
+to deliver to my address. Uber Eats is now on board. I will forever be
+loyal!
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Works in Philly
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-06
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Matthew Farrow
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+5
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+I’ve just used UberEats for 3 days in Philly, no problem. Good selection
+of outlets. Delivery on time. No problems at all.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Appalling after service if something wrong
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-04
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Rebecca Insell
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+Appalling after service if you delivery was wrong. Ordered some wine and
+snacks and delivery driver turned up with tobacco! Rejected the order
+but I had to give him the pin before he would hand over the goods so he
+marked as delivered. He knew he wasn’t the right order and tried to get
+away quickly! I complained to Uber eats many times and just ignored all
+my messages! The delivery driver knew exactly what he was doing as
+wouldn’t get paid if he didn’t take my pin. I paid £20 for something I
+never received and Uber eats think it’s acceptable to just ignore your
+complaint. Disgusting! Will never use them again!
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+The worst food pickup and delivery app…
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-07
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Navdeep Sidhu
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+The worst food pickup and delivery app ever do not download. Use door
+dash or grub hub instead. Uber charges extra fees and rips of their
+customers. User experience also sucks and their customer service is rude
+and hangs up when you call them to try to resolve an issue. This has
+happened to me and people I know multiple times! If I could give Zero
+stars I would!
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+First time user
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-10
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Joe
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+5
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+First time useing the service food arrived fast, hot and undisturb.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Missing food given pictures and proof …
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-11
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Z- k
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+Missing food given pictures and proof they dnt bother and simply replied
+you haven’t order
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+My son ordered me a meal online
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-09
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Janet Sargent
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+My son ordered me a meal online. Special treat for my 80th birthday as I
+couldn’t get out. It was meant to be a surprise. It did not arrive. When
+he contacted them they sent a photo which was supposed to be proof of
+delivery. Just a pic of the bag, no doorway, no handover, may not even
+be my street! So it was one star because I couldn’t give less.Watched
+local CCTV later. He was seen taking a photo of the meal bag and putting
+the bag back on his motorcycle and driving off. The house number was not
+on the bag. Dreadful way to run a business.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+I tried canceling the order you people…
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-08
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Alana Peters
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+I tried canceling the order you people said you were still gong to
+deduct the payment even if I canceled.. I will not be ordering through
+Uber eats again. App deleted
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Roach found in food; poor response from Uber Eats.
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-02
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Christopher
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+I received a food order with a roach crawlingwithin my food (photos were
+submitted as proof). The food was discarded and Uber Eats agreed to
+refund me for the issue. However, I only received half of the refund. I
+attempted to reach out to them for the next couple of days, and it
+wasn’t until the third day that they responded. I spoke to one of their
+representatives named “wolf” who informed me that, since 48 hours had
+passed, they could no longer make the adjustment [refund]. He then kept
+repeating the same statement to my inquiries and ended the chat without
+resolution. At that point, I decided to go with a different delivery
+service for my food deliveries, going forward.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+When is Korean Chicken not Korean Chicken …
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-10
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+LDean
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+When is Korean Chicken not Korean Chicken… When it’s just ordinary dry
+Fried Chicken!Another poor service from UberEats!I ordered Korean
+chicken tenders from an UberEats vendor and rather than receiving the
+Korean chicken smothered in the signature sweet chilli sauce, I received
+plain dry chicken instead. I reported this to UberEats only to be told
+they can’t assist me with this problem and I can let the restaurant know
+that I’m unhappy by rating their performance through UberEats. I find
+that very disappointing as I didn’t receive what I ordered and I feel
+very let down by UberEats for not doing anything to sort this out. I
+ordered Korean chicken tenders from a Korean chicken restaurant, If I
+had wanted plain fried chicken tenders I would’ve ordered from KFC or
+McDonalds as it would have been cheaper and better than what I
+got.UberEats constantly fail to sort problems with their vendors when
+they don’t supply the food as advertised on their menus.UberEats
+continue to provide a poor service along with the poor service of your
+vendors. I truly find the service and help service lacking and feel the
+need to share this review as they should be assisting customers when
+their vendors don’t give the orders or service paid for.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+What kind of company makes it…
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-12
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+John
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+What kind of company makes it impossible or basically refuses to cancel
+a crap subscription? Beware this criminal organisation will steal from
+you!
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+One of our mainstay restaurants the…
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-06
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+customermartin G
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+5
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+One of our mainstay restaurants the fact Uber delivered was a triple
+plus we love the food Uber rides and Uber eats really helps us thankYou
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+ordered from sainsbury’s via uber eats
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-08
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Mandy Jones
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+ordered from sainsbury’s via uber eats, very poor service. I was chared
+£15.00 for a tin of pumpkin which i didn’t order. Failed to send me the
+correct product. Requested a refund but still waiting for a response
+from uber eats.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+I can only speak to my experience which…
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-06
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Joselyn Haight
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+I can only speak to my experience which was so frustrating. The App is
+not easy to navigate if you have a problem. Food was never delivered.
+Driver would not answer phone. Help was found by searching online and
+not found in the App. Got a partial refund. Unacceptable!
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Screenshot Everything as Proof!
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-08
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Cecilia
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+They will offer you a promotion in the app, remove the promotion on your
+final invoice and put the onus on you to provide a screenshot of the
+promotion that they sent you. This happened with my grocery order.
+SCREENSHOT EVERYTHING.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+worst company ever
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-08
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Consumer
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+1
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+worst company ever. they are scam. i was many times sent the wrong food
+or food never arrived and they still charging, saying the order is not
+eligible fot refound, what does even mean when the product never got on
+my hands!! scammers n
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15em; text-align: left;">
+Cielo Mexican Grill - Schaumburg, IL
+</td>
+<td style="text-align:left;width: 12em; text-align: left;">
+2024-08-06
+</td>
+<td style="text-align:left;width: 15em; text-align: left;">
+Keenan Linder
+</td>
+<td style="text-align:right;width: 1em; text-align: center;">
+2
+</td>
+<td style="text-align:left;width: 50em; text-align: left;">
+was craving a burrito and was looking to try a new location. So, I
+decided to stop on in and give Cielo in Schaumburg, a try. The service
+was awesome as for the initial meet and greet for a customer. I decided
+to order an El Pastor Burrito to take home and enjoy while relaxing and
+watching some tv. The complete time spent waiting for the food was about
+10 minutes or so. When I got home, I got comfortable and prepared
+everything around me so that I can eat with no interruptions. I opened
+up the bag and grabbed the wrapped in foil burrito. My hand felt super
+moist, so I was thinking that this burrito is going to be very juicy.
+But when I looked at my hand it was dripping in the oil used to cook the
+meat. The burrito shell was covered in oil, but I was like ok I’m going
+to still give this a try. I opened the super oily foil wrapped around
+the burrito and 1st thing that I noticed was that the El Pastor was
+burnt through and through and tasted very pasty (OLD). The burrito was
+cut in half and filled, actually super stuffed with El Pastor which is
+awesome but even the El Pastor in the 2nd half was burnt through and
+through, (Black &amp; Crispy). That was a 12-to-13-dollar loss, and I
+ended up eating pizza after throwing the entire burnt burrito out in the
+trash. I did notice the sign on the front window stating looking for a
+cook, and I guess that I should have read between the lines there.
+Actually, the worst burrito I have ever had. Check your bag before
+taking out!!
+</td>
+</tr>
+</tbody>
+</table></li>
+</ul>
 </div>
 
 

@@ -23,21 +23,21 @@ library(dplyr)
 library(kableExtra)
 ```
 
-```{r}
+```{r echo=FALSE,warning=FALSE}
 # Define link and page
 link <- "http://books.toscrape.com/"
 page <- read_html(link)
 # call page to see the HTML structure.
 ```
 
-```{r}
+```{r echo=FALSE,warning=FALSE}
 # Extract the titles from the h3 elements and convert to text
 titles <- page %>%
 html_elements("h3") %>% html_text2()
 # View the extracted titles
 ```
 
-```{r}
+```{r echo=FALSE,warning=FALSE}
 # Extract the prices from the elements with class "price_color"
 book_price <- page %>%
   html_elements(".price_color") %>%
@@ -53,14 +53,14 @@ book_df <- bind_cols(title_tibble, price_tibble)
 # View the resulting data frame
 print(book_df)
 ```
-```{r}
+```{r echo=FALSE,warning=FALSE}
 # Define link and page
 link <- "https://www.trustpilot.com/review/ubereats.com"
 page <- read_html(link)
 # call page to see the HTML structure.
-print(page)
 ```
-```{r}
+
+```{r echo=FALSE,warning=FALSE}
 # Clean and convert date strings into Date objects
 clean_dates <- function(dates) {
   cleaned_dates <- gsub("Date of experience: ", "", dates)
@@ -88,7 +88,7 @@ reviewers_tf %>%
                 full_width = FALSE, position = "left")
 ```
 
-# Rating
+# Review Rating
 ```{r echo=FALSE,warning=FALSE}
 # Step 1: Extract the star ratings from the webpage
 ratings_stars <- page %>%
@@ -112,7 +112,7 @@ ratings_tf %>%
 ```
 
 # Reviews text
-```{r}
+```{r echo=FALSE,warning=FALSE}
 # Step 1: Extract the review text from the web page
 reviews_text <- page %>%
   html_elements(".styles_cardWrapper__LcCPA") %>%
@@ -131,7 +131,7 @@ reviews_tf %>%
 
 ```
 # Review Dates
-```{r}
+```{r echo=FALSE,warning=FALSE}
 # Step 1: Extract the review dates from the webpage
 review_dates <- page %>%
   html_elements(".styles_reviewContent__0Q2Tg .typography_body-m__xgxZ_") %>%
@@ -148,4 +148,54 @@ review_dates_tf %>%
   kable_styling(bootstrap_options = c("striped", "responsive"),
                 full_width = FALSE, position = "left")
 ```
+# Combination
+```{r echo=FALSE,warning=FALSE}
+# read the URL
+link <- "https://www.trustpilot.com/review/ubereats.com"
+# Scrape one page
+scrape_one_page <- function(link) {
+  page <- read_html(link)
+  
+# Extract components:reviewers
+  reviewers <- page %>%
+    html_elements(".styles_cardWrapper__LcCPA .typography_heading-xxs__QKBS8") %>%
+    html_text2()
+# Extract components:ratings
+  ratings <- as.numeric(page %>%
+    html_elements(".styles_reviewHeader__iU9Px") %>%
+    html_attr("data-service-review-rating"))
+# Extract components: reviews
+  reviews <- page %>%
+    html_elements(".styles_cardWrapper__LcCPA .typography_body-l__KUYFJ") %>%
+    html_text()
+# Extract components:dates
+  review_dates <- clean_dates(page %>% html_elements(".styles_reviewContent__0Q2Tg .typography_body-m__xgxZ_") %>%
+      html_text())
+# Extract components:titles
+  review_titles <- page %>%
+    html_elements(".styles_reviewContentwrapper__zH_9M .typography_heading-s__f7029") %>%
+    html_text()
+# Create a tibble with all data
+  tibble(
+    title = review_titles,
+    date = review_dates,
+    reviewer = reviewers,
+    rating = ratings,
+    review = reviews)
+}
 
+# Scraping 1 to 5 pages
+link <- "https://www.trustpilot.com/review/ubereats.com"
+five_pages_data <- map_df(1:5, ~ scrape_one_page(paste0(link, "?page=", .x)))
+
+# Display the combined data
+kable(five_pages_data) %>%
+  kable_styling(bootstrap_options = c("striped", "responsive"),
+                full_width = FALSE, position = "left") %>%
+  column_spec(1, width = "15em", extra_css = "text-align: left;") %>%
+  column_spec(2, width = "12em", extra_css = "text-align: left;") %>%
+  column_spec(3, width = "15em", extra_css = "text-align: left;") %>%
+  column_spec(4, width = "1em", extra_css = "text-align: center;") %>%
+  column_spec(5, width = "50em", extra_css = "text-align: left;")
+
+```
