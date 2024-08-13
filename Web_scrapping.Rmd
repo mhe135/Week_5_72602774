@@ -131,4 +131,21 @@ reviews_tf %>%
 
 ```
 # Review Dates
+```{r}
+# Step 1: Extract the review dates from the webpage
+review_dates <- page %>%
+  html_elements(".styles_reviewContent__0Q2Tg .typography_body-m__xgxZ_") %>%
+  html_text(trim = TRUE)
+
+# Step 2: Clean and process the extracted dates 
+cleaned_review_dates <- clean_dates(review_dates) 
+review_dates_tf <- tibble(Date = cleaned_review_dates)
+
+# Step 3: Display the first 6 rows of review dates 
+review_dates_tf %>%
+  head(6) %>%
+  kable(format = "html", col.names = "Date") %>%
+  kable_styling(bootstrap_options = c("striped", "responsive"),
+                full_width = FALSE, position = "left")
+```
 
