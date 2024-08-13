@@ -20,6 +20,7 @@ library(purrr)
 library(readr)
 library(lubridate)
 library(dplyr)
+library(kableExtra)
 ```
 
 ```{r}
@@ -27,15 +28,15 @@ library(dplyr)
 link <- "http://books.toscrape.com/"
 page <- read_html(link)
 # call page to see the HTML structure.
-print(page)
 ```
+
 ```{r}
 # Extract the titles from the h3 elements and convert to text
 titles <- page %>%
 html_elements("h3") %>% html_text2()
 # View the extracted titles
-print(titles)
 ```
+
 ```{r}
 # Extract the prices from the elements with class "price_color"
 book_price <- page %>%
@@ -59,48 +60,35 @@ page <- read_html(link)
 # call page to see the HTML structure.
 print(page)
 ```
-
 ```{r}
-page <- read_html("https://www.trustpilot.com/review/ubereats.com")
-
-# Extract review titles
-titles <- page %>%
-  html_nodes("span.typography_heading-s__f7029.typography_appearance-default__AAY17") %>%
-  html_text()
-
-# Extract review text
-reviews <- page %>%
-  html_nodes("span.typography_body-l__KUYFJ.typography_appearance-default__AAY17.typography_color-black__5LYEn") %>%
-  html_text()
-
-# Extract reviewer names
-reviewers <- page %>%
-  html_nodes("span.typography_heading-xxs__QKBS8.typography_appearance-default__AAY17") %>%
-  html_text()
-
-# Extract dates
-dates <- page %>%
-  html_nodes("span.typography_body-m__xgxZ_.typography_appearance-default__AAY17") %>%
-  html_text() %>%
-  extract_dates()
-
-# Extract ratings
-ratings <- page %>%
-  html_nodes("span.typography_body-m__xgxZ_.typography_appearance-subtle__8_H2l.styles_datesWrapper__RCEKH") %>%
-  html_attr("alt") %>%
-  extract_rating()
-
-
-reviews_df <- data.frame(
-  Reviewer = reviewers,
-  Date = dates,
-  Rating = ratings,
-  Title = titles,
-  Review = reviews,
-  stringsAsFactors = FALSE
-)
-
-print(reviews_df)
+# Clean and convert date strings into Date objects
+clean_dates <- function(dates) {
+  cleaned_dates <- gsub("Date of experience: ", "", dates)
+  parsed_dates <- as.Date(cleaned_dates, format = "%B %d, %Y")
+  parsed_dates <- parsed_dates[!is.na(parsed_dates)]
+  return(parsed_dates)}
 ```
+
+# Reviewer
+```{r echo=FALSE,warning=FALSE}
+# Extract the names of all reviewers
+reviewers <- page %>%
+  html_elements(".styles_cardWrapper__LcCPA") %>%
+  html_elements(".typography_heading-xxs__QKBS8") %>%
+  html_text(trim = TRUE)
+
+# Convert extracted reviewer names into a tibble format
+reviewers_tf <- tibble(reviewer = reviewers)
+# Display the first 6 rows of the reviewer names
+reviewers_tf %>%
+  head(6) %>%
+  kable(col.names = "Reviewer") %>%
+  kable_styling(bootstrap_options = c("striped", "responsive"),
+                full_width = FALSE, position = "left")
+```
+
+# Rating
+
+
 
 
